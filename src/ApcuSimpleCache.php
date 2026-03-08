@@ -18,6 +18,7 @@ namespace TomasChochola\Psr\SimpleCache;
 use DateInterval;
 use DateTimeImmutable;
 use Override;
+use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 use function apcu_clear_cache;
@@ -37,6 +38,11 @@ use function iterator_to_array;
  */
 readonly class ApcuSimpleCache implements CacheInterface
 {
+    public static function unload(ContainerInterface $container): self
+    {
+        return new self();
+    }
+
     #[Override]
     public function clear(): bool
     {

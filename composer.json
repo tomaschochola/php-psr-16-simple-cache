@@ -61,6 +61,7 @@
   "require": {
     "ext-apcu": "*",
     "php": "^8.5.0",
+    "psr/container": "^2.0",
     "psr/simple-cache": "^3.0"
   },
   "require-dev": {

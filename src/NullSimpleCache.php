@@ -17,6 +17,7 @@ namespace TomasChochola\Psr\SimpleCache;
 
 use DateInterval;
 use Override;
+use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 /**
@@ -24,6 +25,11 @@ use Psr\SimpleCache\CacheInterface;
  */
 readonly class NullSimpleCache implements CacheInterface
 {
+    public static function unload(ContainerInterface $container): self
+    {
+        return new self();
+    }
+
     #[Override]
     public function clear(): bool
     {
