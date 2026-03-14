@@ -22,7 +22,7 @@ use UnexpectedValueException;
 /**
  * @no-named-arguments
  */
-final class SimpleCaches
+class SimpleCaches
 {
     /**
      * @template T

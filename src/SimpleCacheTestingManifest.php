@@ -15,13 +15,16 @@ use Traversable;
  *
  * @implements IteratorAggregate<mixed, mixed>
  */
-readonly class SimpleCacheOverrideProvider implements IteratorAggregate
+readonly class SimpleCacheTestingManifest implements IteratorAggregate
 {
     #[NoDiscard]
     #[Override]
     public function getIterator(): Traversable
     {
-        yield NullSimpleCache::class => [NullSimpleCache::class, 'unload'];
-        yield CacheInterface::class => [NullSimpleCache::class, 'unload'];
+        $cache = new NullSimpleCache();
+
+        yield NullSimpleCache::class => $cache;
+
+        yield CacheInterface::class => $cache;
     }
 }

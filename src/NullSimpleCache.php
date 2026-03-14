@@ -16,8 +16,8 @@ declare(strict_types=1);
 namespace TomasChochola\Psr\SimpleCache;
 
 use DateInterval;
+use NoDiscard;
 use Override;
-use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 /**
@@ -25,35 +25,35 @@ use Psr\SimpleCache\CacheInterface;
  */
 readonly class NullSimpleCache implements CacheInterface
 {
-    public static function unload(ContainerInterface $container): self
-    {
-        return new self();
-    }
-
+    #[NoDiscard]
     #[Override]
     public function clear(): bool
     {
-        return false;
+        return true;
     }
 
+    #[NoDiscard]
     #[Override]
     public function delete(string $key): bool
     {
-        return false;
+        return true;
     }
 
+    #[NoDiscard]
     #[Override]
     public function deleteMultiple(iterable $keys): bool
     {
-        return false;
+        return true;
     }
 
+    #[NoDiscard]
     #[Override]
     public function get(string $key, mixed $default = null): mixed
     {
         return $default;
     }
 
+    #[NoDiscard]
     #[Override]
     public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
@@ -62,24 +62,27 @@ readonly class NullSimpleCache implements CacheInterface
         }
     }
 
+    #[NoDiscard]
     #[Override]
     public function has(string $key): bool
     {
         return false;
     }
 
+    #[NoDiscard]
     #[Override]
     public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * @param iterable<mixed, mixed> $values
      */
+    #[NoDiscard]
     #[Override]
     public function setMultiple(iterable $values, DateInterval|int|null $ttl = null): bool
     {
-        return false;
+        return true;
     }
 }

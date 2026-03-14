@@ -17,8 +17,8 @@ namespace TomasChochola\Psr\SimpleCache;
 
 use DateInterval;
 use DateTimeImmutable;
+use NoDiscard;
 use Override;
-use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 use function apcu_clear_cache;
@@ -38,23 +38,21 @@ use function iterator_to_array;
  */
 readonly class ApcuSimpleCache implements CacheInterface
 {
-    public static function unload(ContainerInterface $container): self
-    {
-        return new self();
-    }
-
+    #[NoDiscard]
     #[Override]
     public function clear(): bool
     {
         return apcu_clear_cache();
     }
 
+    #[NoDiscard]
     #[Override]
     public function delete(string $key): bool
     {
         return apcu_delete($key);
     }
 
+    #[NoDiscard]
     #[Override]
     public function deleteMultiple(iterable $keys): bool
     {
@@ -67,6 +65,7 @@ readonly class ApcuSimpleCache implements CacheInterface
         return $ok;
     }
 
+    #[NoDiscard]
     #[Override]
     public function get(string $key, mixed $default = null): mixed
     {
@@ -80,6 +79,7 @@ readonly class ApcuSimpleCache implements CacheInterface
         return $default;
     }
 
+    #[NoDiscard]
     #[Override]
     public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
@@ -106,12 +106,14 @@ readonly class ApcuSimpleCache implements CacheInterface
         }
     }
 
+    #[NoDiscard]
     #[Override]
     public function has(string $key): bool
     {
         return apcu_exists($key);
     }
 
+    #[NoDiscard]
     #[Override]
     public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
@@ -121,6 +123,7 @@ readonly class ApcuSimpleCache implements CacheInterface
     /**
      * @param iterable<mixed, mixed> $values
      */
+    #[NoDiscard]
     #[Override]
     public function setMultiple(iterable $values, DateInterval|int|null $ttl = null): bool
     {
@@ -135,7 +138,8 @@ readonly class ApcuSimpleCache implements CacheInterface
         return $ok;
     }
 
-    protected static function getInterval(DateInterval $interval): int
+    #[NoDiscard]
+    private static function getInterval(DateInterval $interval): int
     {
         $now = new DateTimeImmutable();
 

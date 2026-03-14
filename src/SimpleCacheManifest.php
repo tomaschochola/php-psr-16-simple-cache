@@ -15,13 +15,14 @@ use Traversable;
  *
  * @implements IteratorAggregate<mixed, mixed>
  */
-readonly class SimpleCacheProvider implements IteratorAggregate
+readonly class SimpleCacheManifest implements IteratorAggregate
 {
     #[NoDiscard]
     #[Override]
     public function getIterator(): Traversable
     {
-        yield ApcuSimpleCache::class => [ApcuSimpleCache::class, 'unload'];
-        yield CacheInterface::class => [ApcuSimpleCache::class, 'unload'];
+        yield ApcuSimpleCache::class => [ApcuSimpleCacheAssembler::class, 'assemble'];
+        yield CacheInterface::class => [ApcuSimpleCacheAssembler::class, 'assemble'];
+        yield NullSimpleCache::class => [NullSimpleCacheAssembler::class, 'assemble'];
     }
 }
