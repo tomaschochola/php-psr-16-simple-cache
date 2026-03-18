@@ -19,6 +19,7 @@ use DateInterval;
 use DateTimeImmutable;
 use NoDiscard;
 use Override;
+use Psr\Container\ContainerInterface;
 use Psr\SimpleCache\CacheInterface;
 
 use function apcu_clear_cache;
@@ -38,6 +39,12 @@ use function iterator_to_array;
  */
 readonly class ApcuSimpleCache implements CacheInterface
 {
+    #[NoDiscard]
+    public static function inject(ContainerInterface $container): self
+    {
+        return new self();
+    }
+
     #[NoDiscard]
     #[Override]
     public function clear(): bool

@@ -29,7 +29,7 @@ class SimpleCaches
      *
      * @param callable(): T $fresh
      *
-     * @return T|array<mixed, mixed>
+     * @return T
      */
     #[NoDiscard]
     public static function remember(CacheInterface $cache, string $key, callable $fresh): mixed
