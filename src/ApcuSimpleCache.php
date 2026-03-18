@@ -124,7 +124,7 @@ readonly class ApcuSimpleCache implements CacheInterface
     #[Override]
     public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
-        return apcu_store($key, $value, $ttl instanceof DateInterval ? static::getInterval($ttl) : ($ttl ?? 0));
+        return apcu_store($key, $value, $ttl instanceof DateInterval ? self::getInterval($ttl) : ($ttl ?? 0));
     }
 
     /**
