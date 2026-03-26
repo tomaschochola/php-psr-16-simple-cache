@@ -59,7 +59,6 @@
     }
   ],
   "require": {
-    "ext-apcu": "*",
     "php": "^8.5.0",
     "psr/simple-cache": "^3.0"
   },
