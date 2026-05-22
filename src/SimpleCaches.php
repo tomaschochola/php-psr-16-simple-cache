@@ -31,7 +31,7 @@ class SimpleCaches
      *
      * @return T
      */
-    #[NoDiscard]
+    #[NoDiscard()]
     public static function remember(CacheInterface $cache, string $key, callable $fresh): mixed
     {
         if ($cache->has($key)) {

@@ -25,36 +25,36 @@ use Psr\SimpleCache\CacheInterface;
  */
 readonly class NullSimpleCache implements CacheInterface
 {
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function clear(): bool
     {
         return true;
     }
 
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function delete(string $key): bool
     {
         return true;
     }
 
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function deleteMultiple(iterable $keys): bool
     {
         return true;
     }
 
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function get(string $key, mixed $default = null): mixed
     {
         return $default;
     }
 
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         foreach ($keys as $key) {
@@ -62,16 +62,16 @@ readonly class NullSimpleCache implements CacheInterface
         }
     }
 
-    #[NoDiscard]
-    #[Override]
+    #[NoDiscard()]
+    #[Override()]
     public function has(string $key): bool
     {
         return false;
     }
 
-    #[NoDiscard]
-    #[Override]
-    public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
+    #[NoDiscard()]
+    #[Override()]
+    public function set(string $key, mixed $value, DateInterval | int | null $ttl = null): bool
     {
         return true;
     }
@@ -79,9 +79,9 @@ readonly class NullSimpleCache implements CacheInterface
     /**
      * @param iterable<mixed, mixed> $values
      */
-    #[NoDiscard]
-    #[Override]
-    public function setMultiple(iterable $values, DateInterval|int|null $ttl = null): bool
+    #[NoDiscard()]
+    #[Override()]
+    public function setMultiple(iterable $values, DateInterval | int | null $ttl = null): bool
     {
         return true;
     }
