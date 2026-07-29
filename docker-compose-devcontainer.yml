@@ -1,3 +1,4 @@
+name: 'php-psr-16-simple-cache-devcontainer'
 networks:
   devcontainer:
     internal: false
