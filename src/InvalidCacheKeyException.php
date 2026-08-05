@@ -13,8 +13,14 @@
 
 declare(strict_types=1);
 
-use TomasChochola\Tooling\PhpCsFixer\ConfigFactory;
-use TomasChochola\Tooling\PhpCsFixer\FinderFactory;
-use TomasChochola\Tooling\PhpCsFixer\PHP85;
+namespace TomasChochola\Psr\SimpleCache;
 
-return ConfigFactory::create(FinderFactory::create()->in(__DIR__), \array_replace(PHP85::strictRules(), PHP85::tomasChocholaFileHeaderRules()))->setCacheFile(__DIR__ . '/.php-cs-fixer.cache');
+use InvalidArgumentException;
+use Psr\SimpleCache\InvalidArgumentException as PsrInvalidArgumentException;
+
+/**
+ * @no-named-arguments
+ */
+final class InvalidCacheKeyException extends InvalidArgumentException implements PsrInvalidArgumentException
+{
+}
