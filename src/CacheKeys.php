@@ -25,17 +25,17 @@ use function strpbrk;
  */
 final class CacheKeys
 {
+    private function __construct()
+    {
+    }
+
     #[NoDiscard()]
     public static function validate(mixed $key): string
     {
-        if (!is_string($key) || $key === '' || strpbrk($key, '{}()/\\@:') !== false) {
+        if (!is_string($key) || $key === '' || strpbrk($key, '{}()/\@:') !== false) {
             throw new InvalidCacheKeyException('$key');
         }
 
         return $key;
-    }
-
-    private function __construct()
-    {
     }
 }

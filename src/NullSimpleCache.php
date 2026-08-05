@@ -38,7 +38,7 @@ readonly class NullSimpleCache implements CacheInterface
     #[Override()]
     public function delete(string $key): bool
     {
-        CacheKeys::validate($key);
+        (void) CacheKeys::validate($key);
 
         return true;
     }
@@ -48,7 +48,7 @@ readonly class NullSimpleCache implements CacheInterface
     public function deleteMultiple(iterable $keys): bool
     {
         foreach ($keys as $key) {
-            CacheKeys::validate($key);
+            (void) CacheKeys::validate($key);
         }
 
         return true;
@@ -58,7 +58,7 @@ readonly class NullSimpleCache implements CacheInterface
     #[Override()]
     public function get(string $key, mixed $default = null): mixed
     {
-        CacheKeys::validate($key);
+        (void) CacheKeys::validate($key);
 
         return $default;
     }
@@ -78,7 +78,7 @@ readonly class NullSimpleCache implements CacheInterface
     #[Override()]
     public function has(string $key): bool
     {
-        CacheKeys::validate($key);
+        (void) CacheKeys::validate($key);
 
         return false;
     }
@@ -87,7 +87,7 @@ readonly class NullSimpleCache implements CacheInterface
     #[Override()]
     public function set(string $key, mixed $value, DateInterval | int | null $ttl = null): bool
     {
-        CacheKeys::validate($key);
+        (void) CacheKeys::validate($key);
 
         return true;
     }
@@ -100,7 +100,7 @@ readonly class NullSimpleCache implements CacheInterface
     public function setMultiple(iterable $values, DateInterval | int | null $ttl = null): bool
     {
         foreach ($values as $key => $value) {
-            CacheKeys::validate(is_int($key) ? (string) $key : $key);
+            (void) CacheKeys::validate(is_int($key) ? (string) $key : $key);
         }
 
         return true;

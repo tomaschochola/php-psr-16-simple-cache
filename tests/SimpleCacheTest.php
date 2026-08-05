@@ -42,10 +42,43 @@ use function iterator_to_array;
 #[Small()]
 final class SimpleCacheTest extends TestCase
 {
+    #[Test()]
+    public function deleteMultipleRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        self::assertTrue((new NullSimpleCache())->deleteMultiple(['invalid:key']));
+    }
+
+    #[Test()]
+    public function deleteRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        self::assertTrue((new NullSimpleCache())->delete('invalid:key'));
+    }
+
+    #[Test()]
+    public function getMultipleRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        iterator_to_array((new NullSimpleCache())->getMultiple(['invalid:key']));
+    }
+
+    #[DataProvider('provideGetRejectsEveryInvalidKeyCases')]
+    #[Test()]
+    public function getRejectsEveryInvalidKey(string $key): void
+    {
+        $this->expectException(PsrInvalidArgumentException::class);
+
+        self::assertNull((new NullSimpleCache())->get($key));
+    }
+
     /**
      * @return iterable<string, array{string}>
      */
-    public static function provideInvalidKeysCases(): iterable
+    public static function provideGetRejectsEveryInvalidKeyCases(): iterable
     {
         yield 'empty' => [''];
         yield 'opening brace' => ['{'];
@@ -56,6 +89,14 @@ final class SimpleCacheTest extends TestCase
         yield 'backslash' => ['\\'];
         yield 'at sign' => ['@'];
         yield 'colon' => [':'];
+    }
+
+    #[Test()]
+    public function hasRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        self::assertFalse((new NullSimpleCache())->has('invalid:key'));
     }
 
     #[Test()]
@@ -74,63 +115,6 @@ final class SimpleCacheTest extends TestCase
         self::assertTrue($cache->delete('key'));
         self::assertTrue($cache->deleteMultiple(['key']));
         self::assertTrue($cache->clear());
-    }
-
-    #[DataProvider('provideInvalidKeysCases')]
-    #[Test()]
-    public function getRejectsEveryInvalidKey(string $key): void
-    {
-        $this->expectException(PsrInvalidArgumentException::class);
-
-        (new NullSimpleCache())->get($key);
-    }
-
-    #[Test()]
-    public function setRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        (new NullSimpleCache())->set('invalid:key', 'value');
-    }
-
-    #[Test()]
-    public function deleteRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        (new NullSimpleCache())->delete('invalid:key');
-    }
-
-    #[Test()]
-    public function hasRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        (new NullSimpleCache())->has('invalid:key');
-    }
-
-    #[Test()]
-    public function getMultipleRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        iterator_to_array((new NullSimpleCache())->getMultiple(['invalid:key']));
-    }
-
-    #[Test()]
-    public function setMultipleRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        (new NullSimpleCache())->setMultiple(['invalid:key' => 'value']);
-    }
-
-    #[Test()]
-    public function deleteMultipleRejectsInvalidKey(): void
-    {
-        $this->expectException(InvalidCacheKeyException::class);
-
-        (new NullSimpleCache())->deleteMultiple(['invalid:key']);
     }
 
     #[Test()]
@@ -164,5 +148,21 @@ final class SimpleCacheTest extends TestCase
         $cache->expects($this->once())->method('set')->with('key', 'fresh')->willReturn(true)->seal();
 
         self::assertSame('fresh', SimpleCaches::remember($cache, 'key', static fn(): string => 'fresh'));
+    }
+
+    #[Test()]
+    public function setMultipleRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        self::assertTrue((new NullSimpleCache())->setMultiple(['invalid:key' => 'value']));
+    }
+
+    #[Test()]
+    public function setRejectsInvalidKey(): void
+    {
+        $this->expectException(InvalidCacheKeyException::class);
+
+        self::assertTrue((new NullSimpleCache())->set('invalid:key', 'value'));
     }
 }
