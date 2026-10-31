@@ -71,14 +71,14 @@
     ],
     "require": {
         "php": "^8.5.0",
-        "psr/simple-cache": "^3.0"
+        "psr/simple-cache": "^3.0.0"
     },
     "require-dev": {
         "ext-intl": "*",
         "ext-pcntl": "*",
         "ext-xdebug": "*",
         "ext-zip": "*",
-        "phpunit/phpunit": "^13.0",
+        "phpunit/phpunit": "^13.4.5",
         "roave/security-advisories": "dev-latest",
         "tomaschochola/tooling-php-cs-fixer": "dev-main",
         "tomaschochola/tooling-phpstan": "dev-main"
